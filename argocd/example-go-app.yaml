@@ -1,0 +1,43 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: example-project-example-go-app
+  namespace: argocd
+spec:
+  goTemplate: true
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+  generators:
+    - git:
+        repoURL: "git@github.com:jjsiv-homelab/example-project-infra.git"
+        revision: HEAD
+        directories:
+          - path: "example-go-app/overlays/*"
+  template:
+    metadata:
+      name: "example-project-example-go-app-{{ .path.basenameNormalized }}"
+      labels:
+        project: example-project
+        app: example-go-app
+    spec:
+      project: example-project
+      destination:
+        name: rpi
+        namespace: example-project-{{ .path.basenameNormalized }}
+      sourceHydrator:
+        drySource:
+          repoURL: "git@github.com:jjsiv-homelab/example-project-infra.git"
+          path: "{{ .path.path }}"
+          targetRevision: HEAD
+        syncSource:
+          targetBranch: environments/{{ .path.basenameNormalized }}
+          path: example-go-app
+        hydrateTo:
+          targetBranch: environments/{{ .path.basenameNormalized }}-next
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+          - ServerSideApply=true
+          - CreateNamespace=true
