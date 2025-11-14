@@ -1,0 +1,11 @@
+apiVersion: promoter.argoproj.io/v1alpha1
+kind: GitRepository
+metadata:
+  name: example-project-deploy
+  namespace: example-project-infra
+spec:
+  github:
+    name: example-project-deploy
+    owner: jjsiv-homelab
+  scmProviderRef:
+    name: jjsiv-homelab

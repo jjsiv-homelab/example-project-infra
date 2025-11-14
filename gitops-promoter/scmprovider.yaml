@@ -1,0 +1,10 @@
+apiVersion: promoter.argoproj.io/v1alpha1
+kind: ScmProvider
+metadata:
+  name: jjsiv-homelab
+  namespace: example-project-infra
+spec:
+  secretRef:
+    name: gitops-promoter-gh-app
+  github:
+    appID: 2293213
