@@ -13,6 +13,6 @@ spec:
     - namespace: example-project-prod
       name: rpi
   sourceRepos:
-    - "git@github.com:jjsiv-homelab/example-project-infra.git"
+    - "git@github.com:jjsiv-homelab/example-project-deploy.git"
   sourceNamespaces:
     - argocd
