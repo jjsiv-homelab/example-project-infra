@@ -6,10 +6,10 @@ metadata:
 spec:
   environments:
     - autoMerge: true
-      branch: environment/dev
+      branch: environments/dev
     - autoMerge: false
-      branch: environment/staging
+      branch: environments/staging
     - autoMerge: false
-      branch: environment/prod
+      branch: environments/prod
   gitRepositoryRef:
     name: example-project-deploy
